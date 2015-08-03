@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Scan car pricing</string>
+
+    <string name="hello_world">Scan Vin here</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_scanner">Scanner</string>
+
+
+    <string name="loading">Loading</string>
+    <string name="title_activity_show_car_details">Show Car Details</string>
+    <string name="scan_vin">Scan Vin</string>
+    <string name="update_price">Update</string>
+    <string name="show_car_details">Show Car Details</string>
+    <string name="outstanding">Outstanding</string>
+    <string name="clean">Clean</string>
+    <string name="average">Average</string>
+    <string name="rough">Rough</string>
+    <string name="damaged">Damaged</string>
+    <string name="title_activity_test">TestActivity</string>
+</resources>
