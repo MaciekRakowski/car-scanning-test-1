@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Scan car pricing</string>
+    <string name="app_name">Scan car pricing (gitub)</string>
 
     <string name="hello_world">Scan Vin here</string>
     <string name="action_settings">Settings</string>

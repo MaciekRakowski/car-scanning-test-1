@@ -34,12 +34,17 @@ public class CarDetailsRestTask extends PerformRestTask {
 
 			
 			CarDetails carDetails = new CarDetails();
+			
 			//get options
 			JSONArray options = fullObject.getJSONArray("options");
 			for (int index = 0; index < options.length(); index++) {
 				JSONObject optionJson = options.getJSONObject(index);
-				String option = optionJson.get("option").toString();
-				carDetails.mOptionsIds.add(option);
+				JSONArray subOptions = optionJson.getJSONArray("options");
+				for (int subOptionIndex = 0; subOptionIndex < subOptions.length(); subOptionIndex++) {
+					JSONObject actualOption = subOptions.optJSONObject(subOptionIndex);
+					String optionId = actualOption.getString("id");
+					carDetails.mOptionsIds.add(optionId);
+				}
 			}
 			
 			carDetails.mModelId = id;
