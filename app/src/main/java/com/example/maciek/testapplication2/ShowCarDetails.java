@@ -1,10 +1,13 @@
 package com.example.maciek.testapplication2;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Calendar;
 
 import com.example.macieksquickcarprice.httpmethods.CarDetailsRestTask;
@@ -146,5 +149,48 @@ public class ShowCarDetails extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void appendLocalStorage(String fileName, String contents) {
+        FileOutputStream fos;
+        try {
+            fos = this.openFileOutput(fileName, Context.MODE_APPEND);
+            fos.write("\n".getBytes());
+            fos.write(contents.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    private String readFromLocalStorage(String fileName) {
+        try {
+            FileInputStream fis = openFileInput(fileName);
+            byte[] buffer = new byte[500];
+            int num_read = -1;
+            StringBuffer b = new StringBuffer();
+            while ((num_read = fis.read(buffer)) != -1) {
+                if (num_read < buffer.length) {
+                    byte[] smaller_buffer = TrimBuffer(buffer, num_read);
+                    b.append(new String(smaller_buffer));
+                } else {
+                    b.append(new String(buffer));
+                }
+            }
+            fis.close();
+            return b.toString();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
+    private byte[] TrimBuffer(byte[] buffer, int new_length) {
+        byte[] buffer2 = new byte[new_length];
+        for (int i = 0; i < new_length; i++) {
+            buffer2[i] = buffer[i];
+        }
+        return buffer2;
     }
 }

@@ -1,5 +1,9 @@
 package com.example.macieksquickcarprice.models;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,5 +24,39 @@ public class CarDetails {
 	public String toString() {
 		return String.format("%s %s %s (%s)", mYear, mMake, mModelName, mTrim);
 	}
-	
+
+
+	public void populateCarDetailsFromJSON(String jsonResult, String vin) throws JSONException {
+		JSONObject fullObject = new JSONObject(jsonResult);
+		JSONArray years = fullObject.getJSONArray("years");
+		JSONObject json = years.getJSONObject(0);
+		String year = json.get("year").toString();
+		JSONArray styles = json.getJSONArray("styles");
+		json = styles.getJSONObject(0);
+		String id = json.get("id").toString();
+		String trim = json.getString("trim");
+		String trimName = json.getString("name");
+		String make = fullObject.getJSONObject("make").getString("niceName");
+		String model = fullObject.getJSONObject("model").getString("niceName");
+
+		//get options
+		JSONArray options = fullObject.getJSONArray("options");
+		for (int index = 0; index < options.length(); index++) {
+			JSONObject optionJson = options.getJSONObject(index);
+			JSONArray subOptions = optionJson.getJSONArray("options");
+			for (int subOptionIndex = 0; subOptionIndex < subOptions.length(); subOptionIndex++) {
+				JSONObject actualOption = subOptions.optJSONObject(subOptionIndex);
+				String optionId = actualOption.getString("id");
+				this.mAvailableOptionsIds.add(optionId);
+			}
+		}
+
+		this.mModelId = id;
+		this.mVin = vin;
+		this.mYear = year;
+		this.mMake = make;
+		this.mModelName = model;
+		this.mTrim = trim;
+		this.mTrimFullName = trimName;
+	}
 }
