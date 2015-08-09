@@ -23,22 +23,27 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:screenOrientation="portrait" >
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Scanner"
             android:label="@string/title_activity_scanner"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".ShowCarDetails"
             android:label="@string/title_activity_show_car_details"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ActivityMainPageViewer"
+            android:label="@string/title_activity_activity_main_page_viewer"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

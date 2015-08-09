@@ -18,7 +18,7 @@ public class CarPriceRestTask extends PerformRestTask {
 
 	private String getOptionsString(CarDetails carDetails) {
 		// TODO Auto-generated method stub
-		if (carDetails.mOptionsIds.size() == 0) {
+		if (carDetails.mAvailableOptionsIds.size() == 0) {
 			return "";
 		}
 		StringBuilder builder = new StringBuilder();

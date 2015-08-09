@@ -381,9 +381,12 @@ public class Scanner extends Activity implements SurfaceHolder.Callback {
         vincodeView.setText(vincode);
         vincodeView.setVisibility(View.VISIBLE);
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("vin", vincode);
+        EnterVin.mVin = vincode;
+        Intent intent = new Intent(this, ActivityMainPageViewer.class);
         this.startActivity(intent);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.putExtra("vin", vincode);
+//        this.startActivity(intent);
     }
 
     private byte[] rotateCameraImage(byte[] data, int width, int height) {
