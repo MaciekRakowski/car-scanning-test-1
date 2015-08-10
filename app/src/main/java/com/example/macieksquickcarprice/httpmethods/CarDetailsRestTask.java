@@ -21,7 +21,7 @@ public class CarDetailsRestTask extends PerformRestTask {
 	protected void onPostExecute(String result) {
 		try {
 			CarDetails carDetails = new CarDetails();
-			carDetails.populateCarDetailsFromJSON(result, mVin);
+			carDetails.populateCarDetailsFromJSON(result);
 			//populateCarDetailsFromJSON(result, carDetails);
 
 			mHandler.execute(carDetails);

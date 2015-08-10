@@ -15,6 +15,7 @@ public class CarDetails {
 	public String mYear;
 	public String mTrim = "";
 	public String mTrimFullName = "";
+	public String mFullJSON;
 	public Integer mMiles;	
 	public PriceDetails mPriceDetails = new PriceDetails();
 	public final List<String> mAvailableOptionsIds = new ArrayList<String>();
@@ -25,8 +26,8 @@ public class CarDetails {
 		return String.format("%s %s %s (%s)", mYear, mMake, mModelName, mTrim);
 	}
 
-
-	public void populateCarDetailsFromJSON(String jsonResult, String vin) throws JSONException {
+	public void populateCarDetailsFromJSON(String jsonResult) throws JSONException {
+		mFullJSON = jsonResult;
 		JSONObject fullObject = new JSONObject(jsonResult);
 		JSONArray years = fullObject.getJSONArray("years");
 		JSONObject json = years.getJSONObject(0);
@@ -38,6 +39,7 @@ public class CarDetails {
 		String trimName = json.getString("name");
 		String make = fullObject.getJSONObject("make").getString("niceName");
 		String model = fullObject.getJSONObject("model").getString("niceName");
+		String vin = fullObject.getString("vin");
 
 		//get options
 		JSONArray options = fullObject.getJSONArray("options");
@@ -59,4 +61,16 @@ public class CarDetails {
 		this.mTrim = trim;
 		this.mTrimFullName = trimName;
 	}
+
+	public Boolean tryPopulateCarDetailsFromJSON(String jsonResult) {
+		try {
+			populateCarDetailsFromJSON(jsonResult);
+			return true;
+		}
+		catch (JSONException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
 }
+

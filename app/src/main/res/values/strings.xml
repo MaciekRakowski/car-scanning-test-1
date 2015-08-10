@@ -19,6 +19,9 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_activity_main_page_viewer">ActivityMainPageViewer</string>
     <string name="fixed_place_fragment">This should be fixed.</string>
+    <string name="buttonHistoryShowDetails">Show Details</string>
+    <string name="CarHistoryHeader">History of viewed automobiles</string>
+    <string name="X">X</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

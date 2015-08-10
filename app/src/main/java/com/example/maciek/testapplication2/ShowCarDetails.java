@@ -1,6 +1,7 @@
 package com.example.maciek.testapplication2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import java.util.Calendar;
 import com.example.macieksquickcarprice.httpmethods.CarDetailsRestTask;
 import com.example.macieksquickcarprice.httpmethods.CarPriceRestTask;
 import com.example.macieksquickcarprice.httpmethods.CommonCallback;
+import com.example.macieksquickcarprice.models.ApplicationStateSingleton;
 import com.example.macieksquickcarprice.models.CarDetails;
 
 import android.app.Activity;
@@ -69,6 +71,7 @@ public class ShowCarDetails extends Activity {
     }
 
     private void onCarDetailsReady() {
+        saveCarInHistory();
         TextView textView = (TextView)this.findViewById(R.id.textViewCarDetails);
         textView.setText(String.format("%s\n%s", mCurrentCar.toString(), mCurrentCar.mTrimFullName));
 
@@ -80,6 +83,10 @@ public class ShowCarDetails extends Activity {
         milesText.setText(miles.toString());
 
         updatePrice(getCondition());
+    }
+
+    private void saveCarInHistory() {
+        ApplicationStateSingleton.addCarToHistory(mCurrentCar, this);
     }
 
     private String getCondition() {

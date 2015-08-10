@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.macieksquickcarprice.models.ApplicationStateSingleton;
+
 import java.util.HashMap;
 
 
@@ -31,14 +33,15 @@ public class ActivityMainPageViewer extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationStateSingleton.loadCarsFromHistoryIfNotLoaded(this);
+        mScrollableViews.put(0, new EnterVin());
+        mScrollableViews.put(1, new VehicleHistoryView());
+
         setContentView(R.layout.activity_main_page_viewer);
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.mainPager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
-
-        mScrollableViews.put(0, new EnterVin());
-        mScrollableViews.put(1, new VehicleHistoryView());
     }
 
     @Override
@@ -77,17 +80,11 @@ public class ActivityMainPageViewer extends FragmentActivity {
         @Override
         public Fragment getItem(int position) {
             return ActivityMainPageViewer.this.mScrollableViews.get(new Integer(position));
-//            if (position == 0) {
-//                return new EnterVin();
-//            }
-//            else {
-//                return new VehicleHistoryView();
-//            }
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return  ActivityMainPageViewer.this.mScrollableViews.size();
         }
     }
 }
