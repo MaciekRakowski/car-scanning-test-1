@@ -54,7 +54,6 @@ public class EnterVin extends Fragment {
 
     public void scanVin(View view) {
         try {
-
             Intent intent = new Intent(view.getContext(), Scanner.class);
             startActivity(intent);
         }

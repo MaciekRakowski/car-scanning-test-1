@@ -40,16 +40,19 @@ public class VehicleHistoryView extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vehicle_history_view, container, false);
         ListView listView = (ListView)view.findViewById(R.id.listview);
-        ArrayList<CarDetails> carDetails = new ArrayList<>();
-
-        for (CarDetails carDetail : ApplicationStateSingleton.getAllCarsInHistory()) {
-            carDetails.add(carDetail);
-        }
-
+        ArrayList<CarDetails> carDetails = getCarDetailsList();
 
         mCarHistoryAdapter = new CarHistoryAdapter(view.getContext(), carDetails, this);
         listView.setAdapter(mCarHistoryAdapter);
         return view;
+    }
+
+    static ArrayList<CarDetails> getCarDetailsList() {
+        ArrayList<CarDetails> carDetails = new ArrayList<>();
+        for (CarDetails carDetail : ApplicationStateSingleton.getAllCarsInHistory()) {
+            carDetails.add(carDetail);
+        }
+        return carDetails;
     }
 }
 
@@ -68,21 +71,31 @@ class CarHistoryAdapter extends ArrayAdapter<CarDetails> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView != null) {
-            return convertView;
-        }
+//        if (convertView != null) {
+//            return convertView;
+//        }
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.fragment_history, parent, false);
         final CarDetails carDetail = this.values.get(position);
-        Button b = (Button)view.findViewById(R.id.buttonShowCarDetails);
-        b.setOnClickListener(new View.OnClickListener() {
+        Button buttonShowCarDetails = (Button)view.findViewById(R.id.buttonShowCarDetails);
+        buttonShowCarDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ShowCarDetails.class);
                 intent.putExtra("vin", carDetail.mVin);
                 mMainHistoryView.startActivity(intent);
+            }
+        });
+
+        Button buttonRemoveCar = (Button)view.findViewById(R.id.buttonRemoveFromHistory);
+        buttonRemoveCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApplicationStateSingleton.removeCar(carDetail.mVin, mMainHistoryView.getActivity());
+                values.remove(position);
+                CarHistoryAdapter.this.notifyDataSetChanged();
             }
         });
 
