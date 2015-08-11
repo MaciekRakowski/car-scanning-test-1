@@ -39,12 +39,23 @@ public class VehicleHistoryView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vehicle_history_view, container, false);
+//        ListView listView = (ListView)view.findViewById(R.id.listview);
+//        ArrayList<CarDetails> carDetails = getCarDetailsList();
+//
+//        mCarHistoryAdapter = new CarHistoryAdapter(view.getContext(), carDetails, this);
+//        listView.setAdapter(mCarHistoryAdapter);
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        View view = this.getView();
         ListView listView = (ListView)view.findViewById(R.id.listview);
         ArrayList<CarDetails> carDetails = getCarDetailsList();
 
         mCarHistoryAdapter = new CarHistoryAdapter(view.getContext(), carDetails, this);
         listView.setAdapter(mCarHistoryAdapter);
-        return view;
+        super.onResume();
     }
 
     static ArrayList<CarDetails> getCarDetailsList() {

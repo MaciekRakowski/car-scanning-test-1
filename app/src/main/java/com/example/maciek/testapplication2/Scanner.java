@@ -344,9 +344,16 @@ public class Scanner extends Activity implements SurfaceHolder.Callback {
                 }
 
                 // call native procedure to detect VIN
-                String decodedVIN = b4HScanner.parse(newData, scanW, scanH, this);
+                String decodedVIN = null;
+                int sum = 0;
+                for(int i = 0; i < Math.min(100, newData.length); i++) {
+                    sum += newData[i];
+                }
+                if (sum > 0) {
+                    decodedVIN = b4HScanner.parse(newData, scanW, scanH, this);
+                }
 
-                if (decodedVIN != null) {
+                    if (decodedVIN != null) {
                     // decodedVIN contains line with read code
 
                     beepAndVibrate();    // play sound and vibrate
