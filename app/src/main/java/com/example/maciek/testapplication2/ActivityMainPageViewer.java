@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.macieksquickcarprice.models.ApplicationStateSingleton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -31,6 +32,32 @@ public class ActivityMainPageViewer extends FragmentActivity {
      */
     private PagerAdapter mPagerAdapter;
 
+    public void clickOption1(View view) {
+        mPager.setCurrentItem(0);
+    }
+
+    public void clickOption2(View view) {
+        mPager.setCurrentItem(1);
+    }
+
+    public void clickOption3(View view) {
+        mPager.setCurrentItem(2);
+    }
+
+    class ScrollInfo {
+        public ScrollInfo(float xpos, int position) {
+            xPos = xpos;
+            Position = position;
+        }
+        public float xPos;
+        public int Position;
+
+        @Override
+        public String toString() {
+            return String.format("xPos: %f, Position: %d", xPos, Position);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +67,19 @@ public class ActivityMainPageViewer extends FragmentActivity {
 
         setContentView(R.layout.activity_main_page_viewer);
         final TextView textViewMainPageViewer = (TextView)this.findViewById(R.id.textViewMainPageViewer);
+        final View rectangle = this.findViewById(R.id.viewRectangle);
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.mainPager);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            float mLeft = 50;
+            float mWidth = 200;
+            
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 String str = String.format("positionOffset: %f\npositionOffsetPixels: %d", positionOffset, positionOffsetPixels);
                 textViewMainPageViewer.setText(str);
+                float translate = mLeft + positionOffset * mWidth + position * mWidth;
+                rectangle.setX(translate);
             }
 
             @Override
@@ -98,12 +131,15 @@ public class ActivityMainPageViewer extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
+            if (position == 2) {
+                return new EnterVin();
+            }
             return ActivityMainPageViewer.this.mScrollableViews.get(new Integer(position));
         }
 
         @Override
         public int getCount() {
-            return  ActivityMainPageViewer.this.mScrollableViews.size();
+            return  3;//ActivityMainPageViewer.this.mScrollableViews.size();
         }
     }
 }
