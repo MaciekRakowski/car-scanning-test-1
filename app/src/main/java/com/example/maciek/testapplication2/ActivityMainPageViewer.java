@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.macieksquickcarprice.models.ApplicationStateSingleton;
 
@@ -38,8 +39,26 @@ public class ActivityMainPageViewer extends FragmentActivity {
         mScrollableViews.put(1, new VehicleHistoryView());
 
         setContentView(R.layout.activity_main_page_viewer);
+        final TextView textViewMainPageViewer = (TextView)this.findViewById(R.id.textViewMainPageViewer);
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.mainPager);
+        mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                String str = String.format("positionOffset: %f\npositionOffsetPixels: %d", positionOffset, positionOffsetPixels);
+                textViewMainPageViewer.setText(str);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
     }
