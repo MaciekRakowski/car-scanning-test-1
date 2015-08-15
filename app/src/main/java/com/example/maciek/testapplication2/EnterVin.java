@@ -22,8 +22,6 @@ import android.widget.EditText;
  */
 public class EnterVin extends Fragment {
 
-    public static String mVin = "";
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,8 +44,7 @@ public class EnterVin extends Fragment {
         });
 
         EditText editText = (EditText)view.findViewById(R.id.editTextVin);
-        editText.setText(mVin);
-        //mVin = "";
+        editText.setText(ActivityMainPageViewer.getVin());
 
         return view;
     }
@@ -69,6 +66,7 @@ public class EnterVin extends Fragment {
             EditText editText = (EditText)this.getView().findViewById(R.id.editTextVin);
             String vin = editText.getText().toString();
             intent.putExtra("vin", vin);
+            ActivityMainPageViewer.setVin(vin);
             startActivity(intent);
         }
         catch(Exception ex) {

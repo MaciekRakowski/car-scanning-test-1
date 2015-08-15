@@ -106,6 +106,12 @@ public class ShowCarDetails extends Activity {
         updatePrice(getCondition());
     }
 
+    public void navigateHomeClick(View view) {
+        Intent intent = new Intent(this, ActivityMainPageViewer.class);
+
+        startActivity(intent);
+    }
+
     public void onRadioButtonClicked(View view) {
         TextView textViewPrice = getTextViewPrice();
         textViewPrice.setText("Loading...");
@@ -171,33 +177,4 @@ public class ShowCarDetails extends Activity {
         }
     }
 
-    private String readFromLocalStorage(String fileName) {
-        try {
-            FileInputStream fis = openFileInput(fileName);
-            byte[] buffer = new byte[500];
-            int num_read = -1;
-            StringBuffer b = new StringBuffer();
-            while ((num_read = fis.read(buffer)) != -1) {
-                if (num_read < buffer.length) {
-                    byte[] smaller_buffer = TrimBuffer(buffer, num_read);
-                    b.append(new String(smaller_buffer));
-                } else {
-                    b.append(new String(buffer));
-                }
-            }
-            fis.close();
-            return b.toString();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return "";
-    }
-
-    private byte[] TrimBuffer(byte[] buffer, int new_length) {
-        byte[] buffer2 = new byte[new_length];
-        for (int i = 0; i < new_length; i++) {
-            buffer2[i] = buffer[i];
-        }
-        return buffer2;
-    }
 }

@@ -353,7 +353,7 @@ public class Scanner extends Activity implements SurfaceHolder.Callback {
                     decodedVIN = b4HScanner.parse(newData, scanW, scanH, this);
                 }
 
-                    if (decodedVIN != null) {
+                if (decodedVIN != null) {
                     // decodedVIN contains line with read code
 
                     beepAndVibrate();    // play sound and vibrate
@@ -388,8 +388,10 @@ public class Scanner extends Activity implements SurfaceHolder.Callback {
         vincodeView.setText(vincode);
         vincodeView.setVisibility(View.VISIBLE);
 
-        EnterVin.mVin = vincode;
-        Intent intent = new Intent(this, ActivityMainPageViewer.class);
+        //EnterVin.mVin = vincode;
+        Intent intent = new Intent(this, ShowCarDetails.class);
+        intent.putExtra("vin", vincode);
+        ActivityMainPageViewer.setVin(vincode);
         this.startActivity(intent);
 //        Intent intent = new Intent(this, MainActivity.class);
 //        intent.putExtra("vin", vincode);

@@ -33,17 +33,14 @@ import java.util.Set;
  */
 public class VehicleHistoryView extends Fragment {
 
+
+
     CarHistoryAdapter mCarHistoryAdapter;// = new CarHistoryAdapter();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vehicle_history_view, container, false);
-//        ListView listView = (ListView)view.findViewById(R.id.listview);
-//        ArrayList<CarDetails> carDetails = getCarDetailsList();
-//
-//        mCarHistoryAdapter = new CarHistoryAdapter(view.getContext(), carDetails, this);
-//        listView.setAdapter(mCarHistoryAdapter);
         return view;
     }
 
@@ -55,6 +52,7 @@ public class VehicleHistoryView extends Fragment {
 
         mCarHistoryAdapter = new CarHistoryAdapter(view.getContext(), carDetails, this);
         listView.setAdapter(mCarHistoryAdapter);
+        listView.setScrollY(ActivityMainPageViewer.getScrollY());
         super.onResume();
     }
 
@@ -96,6 +94,7 @@ class CarHistoryAdapter extends ArrayAdapter<CarDetails> {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ShowCarDetails.class);
                 intent.putExtra("vin", carDetail.mVin);
+                ActivityMainPageViewer.setVin(carDetail.mVin);
                 mMainHistoryView.startActivity(intent);
             }
         });

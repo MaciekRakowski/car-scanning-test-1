@@ -70,4 +70,12 @@
         android:layout_alignParentTop="true"
         android:text="@string/loading" />
 
+    <Button
+        android:text="@string/ScanAnotherCar"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:onClick="navigateHomeClick"
+        android:layout_gravity="bottom"/>
+
 </RelativeLayout>
