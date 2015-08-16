@@ -6,21 +6,22 @@
         android:layout_width="250dp"
         android:layout_height="70dp" android:orientation="vertical">
         <TextView android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
-            android:id="@+id/carDetailsText" android:layout_width="match_parent" android:layout_height="25dp"
+            android:textColor="#000000"
+            android:id="@+id/carDetailsText" android:layout_width="match_parent" android:layout_height="20dp"
             android:text="@string/hello_blank_fragment" />
-        <Button
-            android:id="@+id/buttonShowCarDetails"
-            android:text="@string/buttonHistoryShowDetails"
-            android:layout_marginLeft="10dp"
-            android:layout_width="200dp"
-            android:layout_height="45dp" />
+
+        <TextView android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
+            android:textColor="#000000"
+            android:id="@+id/modelDetailsText" android:layout_width="match_parent" android:layout_height="50dp"
+            android:text="@string/hello_blank_fragment" />
+
     </LinearLayout>
 
     <Button
         android:id="@+id/buttonRemoveFromHistory"
         android:text="@string/X"
         android:layout_marginLeft="10dp"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
 </LinearLayout>

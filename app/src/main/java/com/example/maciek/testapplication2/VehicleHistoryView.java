@@ -88,8 +88,7 @@ class CarHistoryAdapter extends ArrayAdapter<CarDetails> {
 
         View view = inflater.inflate(R.layout.fragment_history, parent, false);
         final CarDetails carDetail = this.values.get(position);
-        Button buttonShowCarDetails = (Button)view.findViewById(R.id.buttonShowCarDetails);
-        buttonShowCarDetails.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ShowCarDetails.class);
@@ -111,6 +110,9 @@ class CarHistoryAdapter extends ArrayAdapter<CarDetails> {
 
         TextView tv = (TextView)view.findViewById(R.id.carDetailsText);
         tv.setText(carDetail.toString());
+
+        TextView modelDetailsTextView = (TextView)view.findViewById(R.id.modelDetailsText);
+        modelDetailsTextView.setText(carDetail.mTrimFullName);
         return view;
     }
 }
