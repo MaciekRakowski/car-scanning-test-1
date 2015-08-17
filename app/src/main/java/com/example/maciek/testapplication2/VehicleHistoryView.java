@@ -52,7 +52,10 @@ public class VehicleHistoryView extends Fragment {
 
         mCarHistoryAdapter = new CarHistoryAdapter(view.getContext(), carDetails, this);
         listView.setAdapter(mCarHistoryAdapter);
-        listView.setScrollY(ActivityMainPageViewer.getScrollY());
+        if (ActivityMainPageViewer.getListViewState() != null) {
+            listView.onRestoreInstanceState(ActivityMainPageViewer.getListViewState());
+        }
+
         super.onResume();
     }
 

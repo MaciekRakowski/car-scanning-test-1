@@ -2,6 +2,7 @@ package com.example.maciek.testapplication2;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -27,11 +28,12 @@ import java.util.HashMap;
 public class ActivityMainPageViewer extends FragmentActivity {
 
     private static int mCurrentPage = 0;
-    private static int mScrollY = 0; // we have only one of these views.
+    private static Parcelable mParcelable = null; // we have only one of these views.
     private static String mVin = "";
-    public static int getScrollY() {
-        return mScrollY;
+    public static Parcelable getListViewState() {
+        return mParcelable;
     }
+
     public static void setVin(String vin) {
         mVin = vin;
     }
@@ -80,7 +82,7 @@ public class ActivityMainPageViewer extends FragmentActivity {
 
         mCurrentPage = mPager.getCurrentItem();
         ListView listView = (ListView)this.findViewById(R.id.listview);
-        mScrollY = listView.getScrollY();
+        mParcelable = listView.onSaveInstanceState();
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(savedInstanceState);
@@ -149,10 +151,10 @@ public class ActivityMainPageViewer extends FragmentActivity {
         mPager.setAdapter(mPagerAdapter);
 
         mPager.setCurrentItem(mCurrentPage, false);
-        if (mScrollY  > 0) {
-            ListView listView = (ListView)this.findViewById(R.id.listview);
-            listView.setScrollY(mScrollY);
-        }
+//        if (mParcelable != null) {
+//            ListView listView = (ListView)this.findViewById(R.id.listview);
+//            listView.onRestoreInstanceState(mParcelable);
+//        }
 
     }
 
