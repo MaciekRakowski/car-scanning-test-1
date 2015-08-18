@@ -109,7 +109,7 @@ class CarHistoryAdapter extends ArrayAdapter<CarDetails> {
                         Toast.LENGTH_SHORT);
 
                 toast.show();
-                
+
                 ApplicationStateSingleton.removeCar(carDetail.mVin, mMainHistoryView.getActivity());
                 values.remove(position);
                 CarHistoryAdapter.this.notifyDataSetChanged();
