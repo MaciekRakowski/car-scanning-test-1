@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.macieksquickcarprice.models.ApplicationStateSingleton;
 import com.example.macieksquickcarprice.models.CarDetails;
@@ -83,9 +84,6 @@ class CarHistoryAdapter extends ArrayAdapter<CarDetails> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-//        if (convertView != null) {
-//            return convertView;
-//        }
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -105,6 +103,13 @@ class CarHistoryAdapter extends ArrayAdapter<CarDetails> {
         buttonRemoveCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Toast toast = Toast.makeText(CarHistoryAdapter.this.getContext(),//getApplicationContext(),
+                        String.format("%s %s %s removed!", carDetail.mYear, carDetail.mMake, carDetail.mModelName),
+                        Toast.LENGTH_SHORT);
+
+                toast.show();
+                
                 ApplicationStateSingleton.removeCar(carDetail.mVin, mMainHistoryView.getActivity());
                 values.remove(position);
                 CarHistoryAdapter.this.notifyDataSetChanged();
