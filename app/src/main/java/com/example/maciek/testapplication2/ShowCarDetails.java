@@ -2,6 +2,10 @@ package com.example.maciek.testapplication2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +14,8 @@ import android.view.MenuItem;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 import com.example.macieksquickcarprice.httpmethods.CarDetailsRestTask;
 import com.example.macieksquickcarprice.httpmethods.CarPriceRestTask;
@@ -119,12 +125,33 @@ public class ShowCarDetails extends Activity {
         updatePrice(radioButton.getText().toString());
     }
 
+    private  String getZipcode() {
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses.size() > 0) {
+                return addresses.get(0).getPostalCode();
+            }
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();;
+
+        }
+        return "90210";
+    }
+
     private void updatePrice(String condition) {
 
         CarPriceRestTask carPriceTask = new CarPriceRestTask();
         //Average
         int miles = mCurrentCar.mMiles;
-        carPriceTask.PopulateCarPrice(mCurrentCar, condition, miles, "95117", new CommonCallback<CarDetails>() {
+
+        String zipCode = getZipcode();
+        carPriceTask.PopulateCarPrice(mCurrentCar, condition, miles, zipCode, new CommonCallback<CarDetails>() {
 
             @Override
             public void execute(CarDetails result) {

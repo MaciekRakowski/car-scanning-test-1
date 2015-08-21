@@ -25,9 +25,7 @@ public class ApplicationStateSingleton {
     }
 
     public static void addCarToHistory(CarDetails carDetails, Activity activity) {
-//        if (mCarHistory.containsKey(carDetails.mVin)) {
-//            return;
-//        }
+
         mCarHistory.put(carDetails.mVin, carDetails);
         SharedPreferences sharedPref = activity.getSharedPreferences(historyKey, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
