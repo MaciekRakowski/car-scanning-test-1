@@ -83,7 +83,10 @@ public class ShowCarDetails extends Activity {
 
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int carYear = Integer.parseInt(mCurrentCar.mYear);
-        Integer miles = 12000 * (currentYear - carYear);
+        Integer miles = ApplicationStateSingleton.getMilesForVin(mCurrentCar.mVin, this);
+        if (miles <= 0) {
+            miles = 12000 * (currentYear - carYear);
+        }
         mCurrentCar.mMiles = miles;
         EditText milesText = getTextViewMiles();
         milesText.setText(miles.toString());
@@ -108,6 +111,7 @@ public class ShowCarDetails extends Activity {
         textViewPrice.setText("Loading...");
         EditText editTextMiles= getTextViewMiles();
         Integer miles = Integer.parseInt(editTextMiles.getText().toString());
+        ApplicationStateSingleton.addVinAndMileage(mCurrentCar.mVin, miles, this);
         mCurrentCar.mMiles = miles;
         updatePrice(getCondition());
     }

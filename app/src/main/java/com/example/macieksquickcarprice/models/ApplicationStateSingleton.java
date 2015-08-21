@@ -18,6 +18,7 @@ import java.util.Set;
 public class ApplicationStateSingleton {
     private static final HashMap<String, CarDetails> mCarHistory = new HashMap<String, CarDetails>();
     private static String historyKey = "VehicleHistory";
+    private static String vinMileageKey = "VinMileage";
     private static boolean mCarsLoaded = false;
 
     public static Collection<CarDetails> getAllCarsInHistory() {
@@ -31,6 +32,19 @@ public class ApplicationStateSingleton {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(carDetails.mVin, carDetails.mFullJSON);
         editor.commit();
+    }
+
+    public static void addVinAndMileage(String vin, int miles, Activity activity) {
+        SharedPreferences sharedPref = activity.getSharedPreferences(vinMileageKey, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(vin, miles);
+        editor.commit();
+    }
+
+    public static int getMilesForVin(String vin, Activity activity) {
+        SharedPreferences sharedPref = activity.getSharedPreferences(vinMileageKey, Context.MODE_PRIVATE);
+        int miles = sharedPref.getInt(vin, 0);
+        return miles;
     }
 
     public static void removeCar(String vin, Activity activity) {
