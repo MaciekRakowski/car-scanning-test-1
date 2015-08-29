@@ -22,7 +22,9 @@
     <string name="buttonHistoryShowDetails">Show Details</string>
     <string name="CarHistoryHeader">History of viewed automobiles</string>
     <string name="ScanAnotherCar">Scan another car</string>
-    <string name="X">X</string>
+    <string name="PrivateParty">Private Party:</string>
+    <string name="TradeIn">Trade-in:</string>
+    <string name="Retail">Retail:</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

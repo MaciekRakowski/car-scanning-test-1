@@ -1,18 +1,16 @@
 package com.example.maciek.testapplication2;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -25,9 +23,6 @@ import com.example.macieksquickcarprice.models.CarDetails;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -58,22 +53,13 @@ public class ShowCarDetails extends Activity {
     }
 
     private EditText mTextViewMiles;
-    private EditText getTextViewMiles() {
+    private EditText getEditTextMiles() {
         if (mTextViewMiles != null) {
             return mTextViewMiles;
         }
         EditText milesText = (EditText)this.findViewById(R.id.editTextMiles);
         mTextViewMiles = milesText;
         return mTextViewMiles;
-    }
-
-    private TextView mTextViewPrice;
-    private TextView getTextViewPrice() {
-        if (mTextViewPrice != null) {
-            return mTextViewPrice;
-        }
-        mTextViewPrice = (TextView)this.findViewById(R.id.textViewCarPrice);
-        return mTextViewPrice;
     }
 
     private void onCarDetailsReady() {
@@ -88,8 +74,11 @@ public class ShowCarDetails extends Activity {
             miles = 12000 * (currentYear - carYear);
         }
         mCurrentCar.mMiles = miles;
-        EditText milesText = getTextViewMiles();
+        EditText milesText = getEditTextMiles();
         milesText.setText(miles.toString());
+
+        TextView textViewMiles = (TextView)this.findViewById(R.id.textViewMiles);
+        textViewMiles.setText(formatMiles(miles));
 
         updatePrice(getCondition());
     }
@@ -107,24 +96,43 @@ public class ShowCarDetails extends Activity {
     }
 
     public void updateClick(View view) {
-        TextView textViewPrice = getTextViewPrice();
-        textViewPrice.setText("Loading...");
-        EditText editTextMiles= getTextViewMiles();
+        //TextView textViewPrice = getTextViewPrice();
+        TextView textViewPrivateParty = (TextView)this.findViewById(R.id.textViewPrivateParty);
+        textViewPrivateParty.setText("Loading...");
+        TextView textViewTradeIn = (TextView)this.findViewById(R.id.textViewTradeIn);
+        textViewTradeIn.setText("Loading...");
+        TextView textViewRetail = (TextView)this.findViewById(R.id.textViewRetail);
+        textViewRetail.setText("Loading...");
+
+
+        EditText editTextMiles= getEditTextMiles();
         Integer miles = Integer.parseInt(editTextMiles.getText().toString());
         ApplicationStateSingleton.addVinAndMileage(mCurrentCar.mVin, miles, this);
         mCurrentCar.mMiles = miles;
+
+        mCurrentCar.mMiles = miles;
+        EditText milesText = getEditTextMiles();
+        milesText.setText(miles.toString());
+
+        TextView textViewMiles = (TextView)this.findViewById(R.id.textViewMiles);
+        textViewMiles.setText(formatMiles(miles));
+
         updatePrice(getCondition());
     }
 
     public void navigateHomeClick(View view) {
         Intent intent = new Intent(this, ActivityMainPageViewer.class);
-
         startActivity(intent);
     }
 
     public void onRadioButtonClicked(View view) {
-        TextView textViewPrice = getTextViewPrice();
-        textViewPrice.setText("Loading...");
+        TextView textViewPrivateParty = (TextView)this.findViewById(R.id.textViewPrivateParty);
+        textViewPrivateParty.setText("Loading...");
+        TextView textViewTradeIn = (TextView)this.findViewById(R.id.textViewTradeIn);
+        textViewTradeIn.setText("Loading...");
+        TextView textViewRetail = (TextView)this.findViewById(R.id.textViewRetail);
+        textViewRetail.setText("Loading...");
+
         RadioButton radioButton = ((RadioButton) view);
         updatePrice(radioButton.getText().toString());
     }
@@ -159,17 +167,38 @@ public class ShowCarDetails extends Activity {
 
             @Override
             public void execute(CarDetails result) {
-                // TODO Auto-generated method stub
                 ShowCarDetails.this.onCarPriceReady(result);
             }
         });
     }
 
+    public static String formatPrice(float price) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###.00");
+        return "$" + formatter.format(price);
+    }
+
+    private static String formatMiles(Integer miles) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return "Mileage: " + formatter.format(miles);
+    }
+
     private void onCarPriceReady(CarDetails result) {
+        TextView textViewPrivateParty = (TextView)this.findViewById(R.id.textViewPrivateParty);
+        textViewPrivateParty.setText(formatPrice(result.mPriceDetails.mPrivatePartyValue));
+        TextView textViewTradeIn = (TextView)this.findViewById(R.id.textViewTradeIn);
+        textViewTradeIn.setText(formatPrice(result.mPriceDetails.mTradeinValue));
+        TextView textViewRetail = (TextView)this.findViewById(R.id.textViewRetail);
+        textViewRetail.setText(formatPrice(result.mPriceDetails.mDealerValue));
+
+
         //textViewCarPrice
-        TextView textViewPrice = getTextViewPrice();
-        String display = String.format("Mileage: %d\n\nPrivate Party: %f\nTrade-in: %f\nRetail: %f\n", result.mMiles, result.mPriceDetails.mPrivatePartyValue, result.mPriceDetails.mTradeinValue, result.mPriceDetails.mDealerValue);
-        textViewPrice.setText(display);
+//        TextView textViewPrice = getTextViewPrice();
+//        String display = String.format("Mileage: %s\n\nPrivate Party: $%s\nTrade-in: $%s\nRetail: $%s\n",
+//                formatMiles(result.mMiles),
+//                formatPrice(result.mPriceDetails.mPrivatePartyValue),
+//                formatPrice(result.mPriceDetails.mTradeinValue),
+//                formatPrice(result.mPriceDetails.mDealerValue));
+//        textViewPrice.setText(display);
     }
 
 
