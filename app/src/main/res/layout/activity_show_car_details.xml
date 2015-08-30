@@ -36,40 +36,74 @@
             android:onClick="updateClick"  />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_marginTop="140dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#000000"
+            android:text="@string/outstanding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
+        <TextView
+            android:textColor="#000000"
+            android:text="@string/clean"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="#000000"
+            android:text="@string/average"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="#000000"
+            android:text="@string/rough"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/radiogroup_condition"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="155dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
         <RadioButton android:id="@+id/radio_outstanding"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/outstanding"
+            android:tag="@string/outstanding"
             android:onClick="onRadioButtonClicked"/>
         <RadioButton android:id="@+id/radio_clean"
+            android:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/clean"
+            android:tag="@string/clean"
             android:onClick="onRadioButtonClicked"/>
         <RadioButton android:id="@+id/radio_average"
+            android:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/average"
+            android:tag="@string/average"
             android:onClick="onRadioButtonClicked"/>
         <RadioButton android:id="@+id/radio_rough"
+            android:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rough"
+            android:tag="@string/rough"
             android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/radio_damaged"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/damaged"
-            android:onClick="onRadioButtonClicked"/>
+        <!--<RadioButton android:id="@+id/radio_damaged"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/damaged"-->
+            <!--android:onClick="onRadioButtonClicked"/>-->
     </RadioGroup>
 
     <TextView

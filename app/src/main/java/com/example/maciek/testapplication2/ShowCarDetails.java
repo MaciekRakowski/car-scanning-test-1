@@ -91,7 +91,7 @@ public class ShowCarDetails extends Activity {
         RadioGroup radioButtonGroup = (RadioGroup)this.findViewById(R.id.radiogroup_condition);
         int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
         RadioButton radioButton = (RadioButton)radioButtonGroup.findViewById(radioButtonID);
-        String condition = radioButton.getText().toString();
+        String condition = radioButton.getTag().toString();
         return condition;
     }
 
@@ -134,7 +134,7 @@ public class ShowCarDetails extends Activity {
         textViewRetail.setText("Loading...");
 
         RadioButton radioButton = ((RadioButton) view);
-        updatePrice(radioButton.getText().toString());
+        updatePrice(radioButton.getTag().toString());
     }
 
     private  String getZipcode() {
