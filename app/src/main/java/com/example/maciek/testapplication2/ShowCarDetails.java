@@ -57,24 +57,6 @@ public class ShowCarDetails extends Activity {
         final EditText editTextNotes = (EditText)this.findViewById(R.id.editTextNotes);
         editTextNotes.addTextChangedListener(new EmptyTextPlaceholderHelper(editTextNotes,
                 this.findViewById(R.id.addNotesPlaceHolder)));
-//        editTextNotes.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                String notes = editTextNotes.getText().toString();
-//                View view = ShowCarDetails.this.findViewById(R.id.addNotesPlaceHolder);
-//                view.setVisibility(notes.length() == 0 ? View.VISIBLE : View.GONE);
-//            }
-//        });
     }
 
     @Override
@@ -135,7 +117,6 @@ public class ShowCarDetails extends Activity {
     }
 
     public void updateClick(View view) {
-        //TextView textViewPrice = getTextViewPrice();
         TextView textViewPrivateParty = (TextView)this.findViewById(R.id.textViewPrivateParty);
         textViewPrivateParty.setText("Loading...");
         TextView textViewTradeIn = (TextView)this.findViewById(R.id.textViewTradeIn);
