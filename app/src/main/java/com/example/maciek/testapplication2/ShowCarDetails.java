@@ -6,6 +6,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,6 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import com.com.views.helpers.EmptyTextPlaceholderHelper;
 import com.example.macieksquickcarprice.httpmethods.CarDetailsRestTask;
 import com.example.macieksquickcarprice.httpmethods.CarPriceRestTask;
 import com.example.macieksquickcarprice.httpmethods.CommonCallback;
@@ -50,6 +53,38 @@ public class ShowCarDetails extends Activity {
                 onCarDetailsReady();
             }
         });
+
+        final EditText editTextNotes = (EditText)this.findViewById(R.id.editTextNotes);
+        editTextNotes.addTextChangedListener(new EmptyTextPlaceholderHelper(editTextNotes,
+                this.findViewById(R.id.addNotesPlaceHolder)));
+//        editTextNotes.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                String notes = editTextNotes.getText().toString();
+//                View view = ShowCarDetails.this.findViewById(R.id.addNotesPlaceHolder);
+//                view.setVisibility(notes.length() == 0 ? View.VISIBLE : View.GONE);
+//            }
+//        });
+    }
+
+    @Override
+    protected void onPause() {
+        final EditText editTextNotes = (EditText)this.findViewById(R.id.editTextNotes);
+        String notes = editTextNotes.getText().toString();
+        if (notes.length() > 0 && mCurrentCar != null && mCurrentCar.mVin != null && mCurrentCar.mVin.length() > 0) {
+            ApplicationStateSingleton.addNotesForVehicle(mCurrentCar.mVin, notes, this);
+        }
+        super.onPause();
     }
 
     private EditText mTextViewMiles;
@@ -81,6 +116,10 @@ public class ShowCarDetails extends Activity {
         textViewMiles.setText(formatMiles(miles));
 
         updatePrice(getCondition());
+
+        String notes = ApplicationStateSingleton.getNotesForVehicle(mCurrentCar.mVin, this);
+        EditText editTextNotes = (EditText)this.findViewById(R.id.editTextNotes);
+        editTextNotes.setText(notes);
     }
 
     private void saveCarInHistory() {
@@ -222,19 +261,6 @@ public class ShowCarDetails extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void appendLocalStorage(String fileName, String contents) {
-        FileOutputStream fos;
-        try {
-            fos = this.openFileOutput(fileName, Context.MODE_APPEND);
-            fos.write("\n".getBytes());
-            fos.write(contents.getBytes());
-            fos.close();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
 }
