@@ -22,23 +22,23 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.quickcarprice.activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
 
         </activity>
         <activity
-            android:name=".Scanner"
+            android:name="com.quickcarprice.activities.Scanner"
             android:label="@string/title_activity_scanner"
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name=".ShowCarDetails"
+            android:name="com.quickcarprice.activities.ShowCarDetails"
             android:label="@string/title_activity_show_car_details"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ActivityMainPageViewer"
+            android:name="com.quickcarprice.activities.ActivityMainPageViewer"
             android:label="@string/title_activity_activity_main_page_viewer"
             android:screenOrientation="portrait">
             <intent-filter>

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.example.maciek.testapplication2.EnterVin">
+    tools:context="com.quickcarprice.activities.EnterVin">
 
     <EditText
         android:id="@+id/editTextVin"

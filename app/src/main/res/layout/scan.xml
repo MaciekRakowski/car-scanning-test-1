@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.maciek.testapplication2.ViewFinder
+        <com.quickcarprice.activities.ViewFinder
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/viewfinder_view"
             android:layout_width="fill_parent"
@@ -49,7 +49,7 @@
             android:background="@null"
             android:contentDescription="@null"/>
 
-        <com.example.maciek.testapplication2.RotatableTextView
+        <com.quickcarprice.activities.RotatableTextView
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:id="@+id/tv_vincode"
             android:layout_gravity="center"
