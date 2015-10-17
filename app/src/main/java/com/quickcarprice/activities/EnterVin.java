@@ -1,5 +1,6 @@
 package com.quickcarprice.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -53,6 +54,8 @@ public class EnterVin extends Fragment {
         try {
             Intent intent = new Intent(view.getContext(), Scanner.class);
             startActivity(intent);
+//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bees4honey.com/integration_test.html"));
+//            startActivity(intent);
         }
         catch(Exception ex) {
             ex.printStackTrace();
