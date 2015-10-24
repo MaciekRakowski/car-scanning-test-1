@@ -42,6 +42,11 @@ public class ShowCarDetails extends Activity {
 
         Intent intent = this.getIntent();
         String vin = intent.getStringExtra("vin");
+        if (vin == null) {
+            //comes from bees4honey app.
+            vin = intent.getData().getQueryParameter("param");
+            ActivityMainPageViewer.setVin(vin);
+        }
         CarDetailsRestTask task = new CarDetailsRestTask();
         task.GetCarDetailsByVin(vin, new CommonCallback<CarDetails>() {
             @Override
@@ -55,6 +60,11 @@ public class ShowCarDetails extends Activity {
         final EditText editTextNotes = (EditText)this.findViewById(R.id.editTextNotes);
         editTextNotes.addTextChangedListener(new EmptyTextPlaceholderHelper(editTextNotes,
                 this.findViewById(R.id.addNotesPlaceHolder)));
+
+        if (vin != null) {
+            String notes = ApplicationStateSingleton.getNotesForVehicle(vin, this);
+            editTextNotes.setText(notes);
+        }
     }
 
     @Override
@@ -97,9 +107,9 @@ public class ShowCarDetails extends Activity {
 
         updatePrice(getCondition());
 
-        String notes = ApplicationStateSingleton.getNotesForVehicle(mCurrentCar.mVin, this);
-        EditText editTextNotes = (EditText)this.findViewById(R.id.editTextNotes);
-        editTextNotes.setText(notes);
+//        String notes = ApplicationStateSingleton.getNotesForVehicle(mCurrentCar.mVin, this);
+//        EditText editTextNotes = (EditText)this.findViewById(R.id.editTextNotes);
+//        editTextNotes.setText(notes);
     }
 
     private void saveCarInHistory() {

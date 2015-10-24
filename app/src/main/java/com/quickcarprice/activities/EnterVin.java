@@ -1,7 +1,9 @@
 package com.quickcarprice.activities;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,10 +54,14 @@ public class EnterVin extends Fragment {
 
     public void scanVin(View view) {
         try {
-            Intent intent = new Intent(view.getContext(), Scanner.class);
-            startActivity(intent);
-//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bees4honey.com/integration_test.html"));
+            Vibrator v = (Vibrator) this.getActivity().getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+            if (v.hasVibrator()) {
+                v.vibrate(75);
+            }
+//            Intent intent = new Intent(view.getContext(), Scanner.class);
 //            startActivity(intent);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("b4hvinscan://scan?caller_name=Show Details&callback_url=my.special.scheme%3A%2F%2Fscan%3Fscript%3Dmaciek%26param%3DB4HVINCODE"));
+            startActivity(intent);
         }
         catch(Exception ex) {
             ex.printStackTrace();

@@ -78,6 +78,7 @@ public class ActivityMainPageViewer extends FragmentActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
 
+
         mCurrentPage = mPager.getCurrentItem();
         ListView listView = (ListView)this.findViewById(R.id.listview);
         mParcelable = listView.onSaveInstanceState();

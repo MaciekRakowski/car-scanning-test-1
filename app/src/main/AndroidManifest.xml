@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -25,6 +26,7 @@
             android:name="com.quickcarprice.activities.MainActivity"
             android:windowSoftInputMode="stateHidden"
             android:label="@string/app_name"
+            android:exported="true"
             android:screenOrientation="portrait" >
 
         </activity>
@@ -37,6 +39,11 @@
             android:name="com.quickcarprice.activities.ShowCarDetails"
             android:label="@string/title_activity_show_car_details"
             android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <data android:scheme="my.special.scheme" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
         <activity
             android:name="com.quickcarprice.activities.ActivityMainPageViewer"
@@ -47,6 +54,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
