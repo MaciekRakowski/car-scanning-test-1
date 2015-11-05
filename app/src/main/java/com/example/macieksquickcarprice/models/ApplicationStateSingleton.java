@@ -9,6 +9,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class ApplicationStateSingleton {
     private static String historyKey = "VehicleHistory";
     private static String vinMileageKey = "VinMileage";
     private static String vehicleNotesKey = "vehicleNotesKey";
+    private static String vehiclePicturesKey = "vehiclePictures";
     private static boolean mCarsLoaded = false;
 
     public static Collection<CarDetails> getAllCarsInHistory() {
@@ -76,6 +79,46 @@ public class ApplicationStateSingleton {
             return;
         }
         loadCarsFromHistory(activity);
+    }
+
+    private static String getVehiclePictureKey(String vin) {
+        return String.format("%s-%s-single", "pictures", vin);
+    }
+
+    public static Set<String> getPicturesForCar(Activity activity, String vin) {
+        String key = getVehiclePictureKey(vin);
+        SharedPreferences sharedPref = activity.getSharedPreferences(vehiclePicturesKey, Context.MODE_PRIVATE);
+        Set<String> values = new HashSet<String>();
+        String picture = sharedPref.getString(key, "");
+        values.add(picture);
+        //Set<String> values = sharedPref.getStringSet(key, new HashSet<String>());
+
+        return values;
+    }
+
+    public static void addPictureForCar(Activity activity, String vin, String name) {
+        String key = getVehiclePictureKey(vin);
+        SharedPreferences sharedPref = activity.getSharedPreferences(vehiclePicturesKey, Context.MODE_PRIVATE);
+        //Set<String> values = new HashSet<String>();
+        //Set<String> values = sharedPref.getStringSet(key, new HashSet<String>());
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(key, name);
+        //values.add(name);
+        //SharedPreferences.Editor addCarEditor = editor.putStringSet(key, values);
+
+        editor.commit();
+        //addCarEditor.commit();
+
+    }
+
+    public static void clearPhotosForCar(Activity activity, String vin) {
+        String key = getVehiclePictureKey(vin);
+        SharedPreferences sharedPref = activity.getSharedPreferences(vehiclePicturesKey, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor putEdit = editor.putStringSet(key, new HashSet<String>());
+
+        editor.commit();
+        putEdit.commit();
     }
 
     public static void loadCarsFromHistory(Activity activity) {

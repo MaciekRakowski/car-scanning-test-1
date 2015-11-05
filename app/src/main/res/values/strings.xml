@@ -23,6 +23,7 @@
     <string name="buttonHistoryShowDetails">Show Details</string>
     <string name="CarHistoryHeader">History of viewed automobiles</string>
     <string name="ScanAnotherCar">Scan another car</string>
+    <string name="TakePhoto">Take a photo</string>
     <string name="PrivateParty">Private Party:</string>
     <string name="TradeIn">Trade-in:</string>
     <string name="Retail">Retail:</string>
