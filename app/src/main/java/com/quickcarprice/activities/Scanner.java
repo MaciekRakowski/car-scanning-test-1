@@ -8,6 +8,7 @@ import android.graphics.*;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.media.MediaPlayer;
 import android.os.*;
 import android.util.Log;
@@ -23,6 +24,9 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import com.bees4honey.vinscanner.B4HScanner;
+import com.com.views.helpers.LocationHelpers;
+import com.example.macieksquickcarprice.models.ApplicationStateSingleton;
+import com.google.android.gms.maps.model.LatLng;
 
 
 /**
@@ -52,7 +56,7 @@ import com.bees4honey.vinscanner.B4HScanner;
  * }
  * </pre>
  */
-public class Scanner extends Activity implements SurfaceHolder.Callback {
+public class Scanner extends LocationActivity implements SurfaceHolder.Callback {
     /**
      * Key for boolean extra which should be passed to the activity. If true then first scanned VIN code would be passed
      * back to the calling activity with intent containing {@link #SCANNED_CODE} activity. If no value passed with SINGLE_SCAN value
@@ -110,7 +114,7 @@ public class Scanner extends Activity implements SurfaceHolder.Callback {
     private boolean torchIsOn;
 
     private final Camera.PreviewCallback cameraPreviewCallback;
-    Toast vincode;
+    Toast vincodeToast;
 
     // constructor
     public Scanner() {
@@ -384,15 +388,33 @@ public class Scanner extends Activity implements SurfaceHolder.Callback {
         finish();
     }
 
-    private void showVinCode(String vincode) {
-        vincodeView.setText(vincode);
-        vincodeView.setVisibility(View.VISIBLE);
+    private void showVinCode(String vinCode) {
 
+        try
+        {
+
+            vincodeView.setVisibility(View.VISIBLE);
+            vincodeView.setText(vinCode);
+
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        Location lastLocation = mLastLocation;
+        if (lastLocation != null) {
+            LatLng latLng = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+            ApplicationStateSingleton.addVehicleScanLocation(vinCode, latLng, this);
+        }
+
+//        LatLng latLng = LocationHelpers.getLattitudeLongitude(this);
+//        ApplicationStateSingleton.addVehicleScanLocation(vincode, latLng, this);
         //EnterVin.mVin = vincode;
         Intent intent = new Intent(this, ShowCarDetails.class);
-        intent.putExtra("vin", vincode);
-        ActivityMainPageViewer.setVin(vincode);
+        intent.putExtra("vin", vinCode);
+        ActivityMainPageViewer.setVin(vinCode);
         this.startActivity(intent);
+
 //        Intent intent = new Intent(this, MainActivity.class);
 //        intent.putExtra("vin", vincode);
 //        this.startActivity(intent);
@@ -681,8 +703,8 @@ public class Scanner extends Activity implements SurfaceHolder.Callback {
         setScanning(false);        // stop scanning mode
         camera.release();        // release camera for another apps
 
-        if (vincode != null)
-            vincode.cancel();
+        if (vincodeToast != null)
+            vincodeToast.cancel();
 
         // call handler of parent class
         super.onPause();

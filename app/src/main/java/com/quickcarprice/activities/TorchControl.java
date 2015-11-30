@@ -39,7 +39,10 @@ public class TorchControl {
         try {
             return getFlashlightEnabled.invoke(svc).equals(true);
         }
-        catch(Exception e) {
+        catch(Exception ex) {
+            ex.printStackTrace();
+            String str = ex.getMessage();
+            System.out.println(str);
             return false;
         }
     }

@@ -123,6 +123,7 @@
             android:text="@string/loading" />
 
         <LinearLayout
+            android:id="@+id/panelUsedCar"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="100dp">
@@ -203,23 +204,30 @@
                 android:text="@string/add_notes"
                 android:textColor="@color/grey_light"
                 android:layout_height="wrap_content" />
-
         </LinearLayout>
 
-        <Button
-            android:text="@string/TakePhoto"
-            android:layout_width="150dp"
-            android:layout_height="55dp"
-            android:onClick="takePhoto" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+            <Button
+                android:text="@string/TakePhoto"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:onClick="takePhoto" />
 
-        <Button
-            android:text="@string/ScanAnotherCar"
-            android:layout_width="150dp"
-            android:layout_height="55dp"
-            android:onClick="navigateHomeClick" />
+            <Button
+                android:text="@string/ScanAnotherCar"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:onClick="navigateHomeClick" />
+        </LinearLayout>
 
         <ImageView
             android:background="#000000"
+            android:maxHeight="300dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

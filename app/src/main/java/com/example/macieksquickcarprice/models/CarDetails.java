@@ -1,5 +1,7 @@
 package com.example.macieksquickcarprice.models;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +18,7 @@ public class CarDetails {
 	public String mTrim = "";
 	public String mTrimFullName = "";
 	public String mFullJSON;
-	public Integer mMiles;	
+	public Integer mMiles;
 	public PriceDetails mPriceDetails = new PriceDetails();
 	public final List<String> mAvailableOptionsIds = new ArrayList<String>();
 	public final List<String> mOptionsIds = new ArrayList<String>();

@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -37,6 +38,7 @@ import com.example.macieksquickcarprice.httpmethods.CarPriceRestTask;
 import com.example.macieksquickcarprice.httpmethods.CommonCallback;
 import com.example.macieksquickcarprice.models.ApplicationStateSingleton;
 import com.example.macieksquickcarprice.models.CarDetails;
+import com.google.android.gms.maps.model.LatLng;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -48,9 +50,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
-public class ShowCarDetails extends Activity {
+public class ShowCarDetails extends LocationActivity {
 
     private CarDetails mCurrentCar = null;
+    private boolean mIgnoreLocation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +62,13 @@ public class ShowCarDetails extends Activity {
 
         Intent intent = this.getIntent();
         String vin = intent.getStringExtra("vin");
+
         if (vin == null) {
             //comes from bees4honey app.
             vin = intent.getData().getQueryParameter("param");
             ActivityMainPageViewer.setVin(vin);
         }
+        initializeIgnoreLocationMember(intent, vin);
         CarDetailsRestTask task = new CarDetailsRestTask();
         task.GetCarDetailsByVin(vin, new CommonCallback<CarDetails>() {
             @Override
@@ -83,6 +88,23 @@ public class ShowCarDetails extends Activity {
             editTextNotes.setText(notes);
             setPicture(vin);
         }
+    }
+
+    private void initializeIgnoreLocationMember(Intent intent, String vin) {
+        mIgnoreLocation = intent.getBooleanExtra("ignore-location", false);
+        if (!mIgnoreLocation) {
+            LatLng loc = ApplicationStateSingleton.getVehicleScanLocation(vin, this);
+            mIgnoreLocation = loc != null;
+        }
+    }
+
+    @Override
+    protected void onLocationChanged() {
+        if (mIgnoreLocation || mCurrentCar == null || mCurrentCar.mVin == null) {
+            return;
+        }
+        ApplicationStateSingleton.addVehicleScanLocation(mCurrentCar.mVin, new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), this );
+        mIgnoreLocation = true;
     }
 
     private void setPicture(String vin) {
@@ -244,7 +266,7 @@ public class ShowCarDetails extends Activity {
 
                 break;
             case 1:
-                if(resultCode == RESULT_OK){
+                if(resultCode == RESULT_OK && ActivityMainPageViewer.getVin() != null && ActivityMainPageViewer.getVin() != ""){
                     Uri uri = imageReturnedIntent.getData();
                     InputStream iStream = null;
                     byte [] data = null;
@@ -254,7 +276,7 @@ public class ShowCarDetails extends Activity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    File pictureFile = CameraActivity.getOutputMediaFile(CameraActivity.MEDIA_TYPE_IMAGE);
+                    File pictureFile = CameraActivity.getOutputMediaFile(CameraActivity.MEDIA_TYPE_IMAGE, ActivityMainPageViewer.getVin());
                     if (pictureFile == null){
                         return;
                     }
@@ -311,11 +333,7 @@ public class ShowCarDetails extends Activity {
     private  String getZipcode() {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
-            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            List<Address> addresses = geocoder.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 1);
             if (addresses.size() > 0) {
                 return addresses.get(0).getPostalCode();
             }

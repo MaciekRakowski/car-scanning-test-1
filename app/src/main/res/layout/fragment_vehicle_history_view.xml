@@ -3,11 +3,24 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context="com.quickcarprice.activities.VehicleHistoryView">
-    
-    <TextView
-        android:text="@string/CarHistoryHeader"
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/CarHistoryHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/textViewShowMap"
+            android:layout_marginLeft="30dp"
+            android:text="@string/ViewOnMap"
+            android:textColor="@color/blue_light"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" />
+    </LinearLayout>
 
     <!-- TODO: Update blank fragment layout -->
     <ListView xmlns:android="http://schemas.android.com/apk/res/android"

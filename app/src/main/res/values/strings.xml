@@ -22,11 +22,12 @@
     <string name="fixed_place_fragment">This should be fixed.</string>
     <string name="buttonHistoryShowDetails">Show Details</string>
     <string name="CarHistoryHeader">History of viewed automobiles</string>
-    <string name="ScanAnotherCar">Scan another car</string>
-    <string name="TakePhoto">Take a photo</string>
+    <string name="ScanAnotherCar">Another car</string>
+    <string name="TakePhoto">Choose Photo</string>
     <string name="PrivateParty">Private Party:</string>
     <string name="TradeIn">Trade-in:</string>
     <string name="Retail">Retail:</string>
+    <string name="ViewOnMap">View On Map</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -34,4 +35,6 @@
     <string name="test1">Vin Entry</string>
     <string name="test2">History</string>
     <string name="test3">More Info</string>
+    <string name="title_activity_car_history_map">Map</string>
+    <string name="title_activity_maps_activity2">Map</string>
 </resources>

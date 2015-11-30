@@ -39,7 +39,19 @@ public class VehicleHistoryView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vehicle_history_view, container, false);
+        TextView textViewShowMap = (TextView)view.findViewById(R.id.textViewShowMap);
+        textViewShowMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), CarHistoryMap.class );
+                view.getContext().startActivity(intent);
+            }
+        });
         return view;
+    }
+
+    public void onMapHistoryClick(View view) {
+
     }
 
     @Override
@@ -91,6 +103,7 @@ class CarHistoryAdapter extends ArrayAdapter<CarDetails> {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ShowCarDetails.class);
                 intent.putExtra("vin", carDetail.mVin);
+                intent.putExtra("ignore-location", true);
                 ActivityMainPageViewer.setVin(carDetail.mVin);
                 mMainHistoryView.startActivity(intent);
             }

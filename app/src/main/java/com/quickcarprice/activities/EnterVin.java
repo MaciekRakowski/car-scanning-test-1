@@ -58,10 +58,10 @@ public class EnterVin extends Fragment {
             if (v.hasVibrator()) {
                 v.vibrate(75);
             }
-//            Intent intent = new Intent(view.getContext(), Scanner.class);
-//            startActivity(intent);
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("b4hvinscan://scan?caller_name=Show Details&callback_url=my.special.scheme%3A%2F%2Fscan%3Fscript%3Dmaciek%26param%3DB4HVINCODE"));
+            Intent intent = new Intent(view.getContext(), Scanner.class);
             startActivity(intent);
+//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("b4hvinscan://scan?caller_name=Show Details&callback_url=my.special.scheme%3A%2F%2Fscan%3Fscript%3Dmaciek%26param%3DB4HVINCODE"));
+//            startActivity(intent);
         }
         catch(Exception ex) {
             ex.printStackTrace();

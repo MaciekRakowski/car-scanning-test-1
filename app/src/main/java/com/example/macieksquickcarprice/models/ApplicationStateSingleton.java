@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -23,10 +25,76 @@ public class ApplicationStateSingleton {
     private static String vinMileageKey = "VinMileage";
     private static String vehicleNotesKey = "vehicleNotesKey";
     private static String vehiclePicturesKey = "vehiclePictures";
+    private static String vehicleScanLocationKey = "vehicleScanLocation";
     private static boolean mCarsLoaded = false;
 
     public static Collection<CarDetails> getAllCarsInHistory() {
         return mCarHistory.values();
+    }
+
+    public static HashMap<String, CarDetails> getAllCarsInHistoryHash() {
+        return mCarHistory;
+    }
+
+    public static void addVehicleScanLocation(String vin, LatLng latLng, Activity activity) {
+        SharedPreferences sharedPref = activity.getSharedPreferences(vehicleScanLocationKey, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(vin, String.format("%f,%f", latLng.latitude, latLng.longitude));
+        editor.commit();
+    }
+
+    public  static void removeScanLocation(String vin, Activity activity) {
+        SharedPreferences sharedPref = activity.getSharedPreferences(vehicleScanLocationKey, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        SharedPreferences.Editor remove = editor.remove(vin);
+        remove.commit();
+        editor.commit();
+    }
+
+    public static LatLng getVehicleScanLocation(String vin, Activity activity) {
+        SharedPreferences sharedPref = activity.getSharedPreferences(vehicleScanLocationKey, Context.MODE_PRIVATE);
+
+        String latLngStr = sharedPref.getString(vin, "");
+        String [] latLngStrArray = latLngStr.split(",");
+        if (latLngStrArray.length != 2) {
+            return null;
+        }
+        try {
+            double latitude = Double.parseDouble(latLngStrArray[0]);
+            double longitude = Double.parseDouble(latLngStrArray[1]);
+            return new LatLng(latitude, longitude);
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    private static LatLng getLatLngFromString(String latLngStr) {
+        try {
+            String [] latLongStrs = latLngStr.split(",");
+            return new LatLng(Double.parseDouble(latLongStrs[0]), Double.parseDouble(latLongStrs[1]));
+
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();;
+            return null;
+        }
+    }
+
+    public static Map<String, LatLng> getAllScanLocations(Activity activity) {
+        SharedPreferences sharedPref = activity.getSharedPreferences(vehicleScanLocationKey, Context.MODE_PRIVATE);
+        Map<String, ?> latLongAsString = sharedPref.getAll();
+        Map<String, LatLng> latLngMap = new HashMap<String, LatLng>();
+
+        for (String key : latLongAsString.keySet()) {
+            String result = String.valueOf(latLongAsString.get(key));
+            LatLng latLng = getLatLngFromString(result);
+            if (latLng == null)
+                continue;;
+            latLngMap.put(key, latLng);
+        }
+        return latLngMap;
     }
 
     public static void addCarToHistory(CarDetails carDetails, Activity activity) {
@@ -72,6 +140,8 @@ public class ApplicationStateSingleton {
         remove.commit();
 
         mCarHistory.remove(vin);
+
+        removeScanLocation(vin, activity);
     }
 
     public static void loadCarsFromHistoryIfNotLoaded(Activity activity) {
