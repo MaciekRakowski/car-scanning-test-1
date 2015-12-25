@@ -23,6 +23,10 @@ public class CarDetails {
 	public final List<String> mAvailableOptionsIds = new ArrayList<String>();
 	public final List<String> mOptionsIds = new ArrayList<String>();
 
+	public CarDetails(String vin) {
+		mVin = vin;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s %s %s (%s)", mYear, mMake, mModelName, mTrim);
@@ -41,7 +45,7 @@ public class CarDetails {
 		String trimName = json.getString("name");
 		String make = fullObject.getJSONObject("make").getString("niceName");
 		String model = fullObject.getJSONObject("model").getString("niceName");
-		String vin = fullObject.getString("vin");
+		//String vin = fullObject.getString("vin");
 
 		//get options
 		JSONArray options = fullObject.getJSONArray("options");
@@ -56,7 +60,7 @@ public class CarDetails {
 		}
 
 		this.mModelId = id;
-		this.mVin = vin;
+		//this.mVin = vin;
 		this.mYear = year;
 		this.mMake = make;
 		this.mModelName = model;

@@ -201,7 +201,7 @@ public class ApplicationStateSingleton {
                 continue;
             }
 
-            CarDetails carDetails = new CarDetails();
+            CarDetails carDetails = new CarDetails(vin);
             if (!carDetails.tryPopulateCarDetailsFromJSON(jsonStr)) {
                 continue;
             }

@@ -20,7 +20,7 @@ public class CarDetailsRestTask extends PerformRestTask {
 	@Override  
 	protected void onPostExecute(String result) {
 		try {
-			CarDetails carDetails = new CarDetails();
+			CarDetails carDetails = new CarDetails(mVin);
 			carDetails.populateCarDetailsFromJSON(result);
 			//populateCarDetailsFromJSON(result, carDetails);
 
