@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/textViewCarDetails"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="75dp"
             android:text="@string/loading" />
@@ -30,7 +30,7 @@
             <EditText
                 android:id="@+id/editTextMiles"
                 android:layout_width="150dp"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:text="@string/loading"
@@ -48,27 +48,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:text="@string/outstanding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:text="@string/clean"
                 android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:text="@string/average"
                 android:layout_marginLeft="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:text="@string/rough"
                 android:layout_marginLeft="40dp"
                 android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
         </RadioGroup>
 
         <TextView
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:id="@+id/textViewMiles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,14 +133,14 @@
                 android:orientation="horizontal"
                 android:layout_height="20dp">
                 <TextView
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:text="@string/PrivateParty" />
                 <TextView
                     android:id="@+id/textViewPrivateParty"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -152,14 +152,14 @@
                 android:orientation="horizontal"
                 android:layout_height="20dp">
                 <TextView
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:text="@string/TradeIn" />
                 <TextView
                     android:id="@+id/textViewTradeIn"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -171,14 +171,14 @@
                 android:orientation="horizontal"
                 android:layout_height="20dp">
                 <TextView
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:text="@string/Retail" />
                 <TextView
                     android:id="@+id/textViewRetail"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
