@@ -22,6 +22,7 @@ public class CarDetails {
 	public PriceDetails mPriceDetails = new PriceDetails();
 	public final List<String> mAvailableOptionsIds = new ArrayList<String>();
 	public final List<String> mOptionsIds = new ArrayList<String>();
+	private Integer mBaseMSRP;
 
 	public CarDetails(String vin) {
 		mVin = vin;
@@ -30,6 +31,15 @@ public class CarDetails {
 	@Override
 	public String toString() {
 		return String.format("%s %s %s (%s)", mYear, mMake, mModelName, mTrim);
+	}
+
+	private Integer getBaseMsrpFromResponse(JSONObject fullObject) {
+		try {
+			return fullObject.getJSONObject("price").getInt("baseMSRP");
+		}
+		catch (Exception ex) {
+			return null;
+		}
 	}
 
 	public void populateCarDetailsFromJSON(String jsonResult) throws JSONException {
@@ -45,6 +55,7 @@ public class CarDetails {
 		String trimName = json.getString("name");
 		String make = fullObject.getJSONObject("make").getString("niceName");
 		String model = fullObject.getJSONObject("model").getString("niceName");
+		this.mBaseMSRP = getBaseMsrpFromResponse(fullObject);
 		//String vin = fullObject.getString("vin");
 
 		//get options
