@@ -176,6 +176,9 @@ public class ShowCarDetails extends LocationActivity {
         TextView textViewMiles = (TextView)this.findViewById(R.id.textViewMiles);
         textViewMiles.setText(formatMiles(miles));
 
+        TextView textViewMSRP = (TextView)this.findViewById(R.id.textViewMSRP);
+        textViewMSRP.setText(formatPrice(mCurrentCar.mBaseMSRP));
+
         updatePrice(getCondition());
 
 //        String notes = ApplicationStateSingleton.getNotesForVehicle(mCurrentCar.mVin, this);

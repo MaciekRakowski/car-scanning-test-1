@@ -22,7 +22,7 @@ public class CarDetails {
 	public PriceDetails mPriceDetails = new PriceDetails();
 	public final List<String> mAvailableOptionsIds = new ArrayList<String>();
 	public final List<String> mOptionsIds = new ArrayList<String>();
-	private Integer mBaseMSRP;
+	public float mBaseMSRP;
 
 	public CarDetails(String vin) {
 		mVin = vin;
@@ -33,12 +33,12 @@ public class CarDetails {
 		return String.format("%s %s %s (%s)", mYear, mMake, mModelName, mTrim);
 	}
 
-	private Integer getBaseMsrpFromResponse(JSONObject fullObject) {
+	private float getBaseMsrpFromResponse(JSONObject fullObject) {
 		try {
 			return fullObject.getJSONObject("price").getInt("baseMSRP");
 		}
 		catch (Exception ex) {
-			return null;
+			return -1;
 		}
 	}
 

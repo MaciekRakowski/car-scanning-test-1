@@ -185,6 +185,25 @@
                     android:text="@string/loading" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="20dp">
+                <TextView
+                    android:textColor="#FFFFFF"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/MSRP" />
+                <TextView
+                    android:id="@+id/textViewMSRP"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/loading" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
