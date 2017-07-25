@@ -76,6 +76,9 @@ public class CarHistoryMap extends FragmentActivity {
         for (String vin : allLocations.keySet()) {
             LatLng latLng  = allLocations.get(vin);
             CarDetails carDetails = cars.get(vin);
+            if (carDetails == null) {
+                continue;
+            }
             String notes = ApplicationStateSingleton.getNotesForVehicle(vin, this);
             Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title(carDetails.toString()).snippet(notes));
             markerToCar.put(marker, carDetails);

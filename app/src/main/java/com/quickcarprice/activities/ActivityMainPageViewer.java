@@ -111,6 +111,7 @@ public class ActivityMainPageViewer extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getActionBar().setTitle("Quick Car scanner");
         ApplicationStateSingleton.loadCarsFromHistoryIfNotLoaded(this);
         mScrollableViews.put(0, new EnterVin());
         mScrollableViews.put(1, new VehicleHistoryView());
