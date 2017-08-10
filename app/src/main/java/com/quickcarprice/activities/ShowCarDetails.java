@@ -177,7 +177,13 @@ public class ShowCarDetails extends LocationActivity {
         textViewMiles.setText(formatMiles(miles));
 
         TextView textViewMSRP = (TextView)this.findViewById(R.id.textViewMSRP);
-        textViewMSRP.setText(formatPrice(mCurrentCar.mBaseMSRP));
+        if (mCurrentCar.mBaseMSRP < 0) {
+            textViewMSRP.setText("N/A");
+        }
+        else {
+            textViewMSRP.setText(formatPrice(mCurrentCar.mBaseMSRP));
+        }
+
 
         updatePrice(getCondition());
 

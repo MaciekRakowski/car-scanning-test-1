@@ -123,7 +123,8 @@ public class ActivityMainPageViewer extends FragmentActivity {
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.mainPager);
 
-        final float rectangleWidth = convertDpToPixel(75, getApplicationContext());
+        //final float rectangleWidth = convertDpToPixel(75, getApplicationContext());
+        final float rectangleWidth = convertDpToPixel(110, getApplicationContext());
         final float paddingLeft = convertDpToPixel(16, getApplicationContext());
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             float mLeft = paddingLeft;//50;
